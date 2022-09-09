@@ -9,7 +9,6 @@ namespace OOPReview1
 {
     public class NhlTeam
     {
-
         // Define an auto-implemented property with a private set 
         // for the Conference of type NhlConference
         public NhlConference Conference { get; private set; }
@@ -22,13 +21,14 @@ namespace OOPReview1
         // Validate that the new name is not null or an empty or
         // contains just whitespaces.
         // Trim all leading and trailing whitespaces
-        public string _name; // data field for the Name property
-        public string _city;
-        public int _gamesplayed;
-        public int _wins;
-        public int _losses;
-        public int _overtimelosses;
-        public int _points;
+        private string _name; // data field for the Name property
+        private string _city;
+        private int _gamesplayed;
+        private int _wins;
+        private int _losses;
+        private int _overtimelosses;
+        private int _points;
+        
         public string Name
         {
             get => _name;
@@ -53,7 +53,7 @@ namespace OOPReview1
             get => _gamesplayed;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException("Game played cannot be negative");
                 }
@@ -66,7 +66,7 @@ namespace OOPReview1
             get => _wins;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException("Wins cannot be negative");
                 }
@@ -79,7 +79,7 @@ namespace OOPReview1
             get => _losses;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException("Losses cannot be negative");
                 }
@@ -92,7 +92,7 @@ namespace OOPReview1
             get => _overtimelosses;
             set
             {
-                if (value <= 0)
+                if (value < 0)
                 {
                     throw new ArgumentOutOfRangeException("Overtime losses cannot be negative");
                 }
@@ -103,6 +103,60 @@ namespace OOPReview1
         public int Points
         {
             get => (Wins * 2) + OvertimeLosses;
+        }
+
+        // Define an auto-implemented property with a private set for players
+        public List<NhlRoster> players { get; private set; }
+        private const int MaxPlayers = 23;
+
+        public void AddPlayer(NhlRoster currentPlayer)
+        {
+            if (players.Count >= MaxPlayers)
+            {
+                throw new ArgumentException("Roster is full. Remove a player first");
+                players.Add(currentPlayer);
+            }
+        }
+        public void RemovePlayer(int playerNo)
+        {
+            // Remove from the Players list the player with the matching playerNo.
+            // Throw an ArgumentException if the playerNo does not exists
+            bool foundPlayer = false;
+            int playerIndex = -1;
+            for (int index = 0; index < players.Count; index++)
+            {
+                if (Players[index].No == playerNo)
+                {
+                    foundPlayer = true;
+                    playerIndex = index;
+                    index = players.Count; // stop loop
+                }
+            }
+            if (!foundPlayer)
+            {
+                throw new ArgumentException($"Player ${playerNo} is not on the team");
+            }
+            players.RemoveAt(playerIndex);
+        }
+        public NhlTeam(NhlConference conference, NhlDivision division, string name, string city, List<NhlRoster> players)
+        {
+            if (players == null)
+            {
+                players = new List<NhlRoster>();
+            }
+            else
+            {
+                NhlRoster.PlayerName = players;
+            }
+            Conference = conference;
+            Division = division;
+            Name = name;
+            this.City = city;
+
+            GamesPlayed = 0;
+            Wins = 0;
+            Losses = 0;
+            OvertimeLosses = 0;
         }
 
         public NhlTeam(NhlConference conference, NhlDivision division, string name, string city)
