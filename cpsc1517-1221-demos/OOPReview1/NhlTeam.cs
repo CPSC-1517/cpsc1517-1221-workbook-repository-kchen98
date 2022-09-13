@@ -106,15 +106,15 @@ namespace OOPReview1
         }
 
         // Define an auto-implemented property with a private set for players
-        public List<NhlRoster> players { get; private set; }
+        public List<NhlRoster> Players { get; private set; }
         private const int MaxPlayers = 23;
 
         public void AddPlayer(NhlRoster currentPlayer)
         {
-            if (players.Count >= MaxPlayers)
+            if (Players.Count >= MaxPlayers)
             {
                 throw new ArgumentException("Roster is full. Remove a player first");
-                players.Add(currentPlayer);
+                Players.Add(currentPlayer);
             }
         }
         public void RemovePlayer(int playerNo)
@@ -123,20 +123,20 @@ namespace OOPReview1
             // Throw an ArgumentException if the playerNo does not exists
             bool foundPlayer = false;
             int playerIndex = -1;
-            for (int index = 0; index < players.Count; index++)
+            for (int index = 0; index < Players.Count; index++)
             {
-                if (Players[index].No == playerNo)
+                if (Players[index].PlayerNumber == playerNo)
                 {
                     foundPlayer = true;
                     playerIndex = index;
-                    index = players.Count; // stop loop
+                    index = Players.Count; // stop loop
                 }
             }
             if (!foundPlayer)
             {
                 throw new ArgumentException($"Player ${playerNo} is not on the team");
             }
-            players.RemoveAt(playerIndex);
+            Players.RemoveAt(playerIndex);
         }
         public NhlTeam(NhlConference conference, NhlDivision division, string name, string city, List<NhlRoster> players)
         {
@@ -146,7 +146,7 @@ namespace OOPReview1
             }
             else
             {
-                NhlRoster.PlayerName = players;
+                Players = players;
             }
             Conference = conference;
             Division = division;
