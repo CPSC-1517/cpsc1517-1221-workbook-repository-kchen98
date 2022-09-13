@@ -27,7 +27,6 @@ namespace OOPReview1
         private int _wins;
         private int _losses;
         private int _overtimelosses;
-        private int _points;
         
         public string Name
         {
@@ -151,16 +150,14 @@ namespace OOPReview1
             Conference = conference;
             Division = division;
             Name = name;
-            this.City = city;
+            City = city;
 
-            GamesPlayed = 0;
-            Wins = 0;
-            Losses = 0;
-            OvertimeLosses = 0;
         }
 
         public NhlTeam(NhlConference conference, NhlDivision division, string name, string city)
         {
+            Players = new List<NhlRoster>();
+
             Conference = conference;
             Division = division;
             Name = name;
