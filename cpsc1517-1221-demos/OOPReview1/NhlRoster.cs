@@ -44,7 +44,7 @@ namespace OOPReview1
         }
 
         // Define a greedy constructor with parameters for no, name, and position
-        public NhlRoster(NhlPosition position, int playernumber, string playername)
+        public NhlRoster(int playernumber, string playername, NhlPosition position)
         {
             Position = position;
             PlayerNumber = playernumber;
@@ -54,7 +54,7 @@ namespace OOPReview1
         // Define ToString method
         public override string ToString()
         {
-            return $"{Position}, {PlayerNumber}, {PlayerName}";
+            return $"{PlayerNumber}, {PlayerName}, {Position}";
         }
     }
 }
