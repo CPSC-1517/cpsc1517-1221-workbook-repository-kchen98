@@ -39,7 +39,7 @@ catch (ArgumentException ex)
 try
 {
     // Test creating a new Roster with an invalid Player Name
-    NhlRoster invalidPlayer1 = new NhlRoster(77, null, NhlPosition.C);
+    NhlRoster invalidPlayer1 = new NhlRoster(77, null!, NhlPosition.C);
     // An ArgumentException should be thrown with a message indentifying what the error is 
 }
 catch (ArgumentException ex)
