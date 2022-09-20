@@ -63,3 +63,34 @@ catch (ArgumentException ex)
 {
     Console.WriteLine(ex.Message); // The output should be "FullName is required"
 }
+
+// Test creating a new Team
+// Create a new Coach for the team
+DateTime startDate = DateTime.Parse("2021-09-02");
+Coach oilersCoach = new Coach("Jay Woodcroft", startDate);
+// Create a new Team
+Team oilersTeam = new Team("Edmonton Oilers", oilersCoach);
+// Add 3 players to the Team 
+Player player1 = new Player("Connor McDavid", Position.C, 97);
+Player player2 = new Player("Evander Kane", Position.LW, 91);
+Player player3 = new Player("Leeon Draisaitl", Position.C, 29);
+oilersTeam.AddPlayer(player1);
+oilersTeam.AddPlayer(player2);
+oilersTeam.AddPlayer(player3);
+// Assign Goals and Assists to each player
+player1.Goals = 44;
+player1.Assists = 79;
+player2.Goals = 22;
+player2.Assists = 17;
+player3.Goals = 55;
+player3.Assists = 55;
+
+// Check that the team has 3 players
+Console.WriteLine($"Players in team is {oilersTeam.Players.Count}");
+// Print each player in the team
+foreach (Player currentPlayer in oilersTeam.Players)
+{
+    Console.WriteLine(currentPlayer);
+}
+// Check the TotalPlayerPoints should be (44+79+22+17+55+55) = 272
+Console.WriteLine($"Total player points is {oilersTeam.TotalPlayerPoints}");
