@@ -23,7 +23,7 @@ Console.WriteLine(validPerson.FullName);    // The value should be Connor McDavi
 // Test Case 2: Null FullName
 try
 {
-    var nullPerson = new Person(null);
+    var nullPerson = new Person(null!);
     Console.WriteLine("Null Test Case failed.");
 }
 catch (ArgumentNullException ex)
