@@ -27,8 +27,9 @@ namespace NhlSystem
             if (Players.Count >= 3)
             {
                 throw new ArgumentException("Team is full. Cannot add any more players");
-            }    
+            }
             // Validate that the newPlayer PrimaryNo is not already in use
+
             bool primaryNoFound = false;
             foreach (Player currentPlayer in Players)
             {
@@ -42,6 +43,13 @@ namespace NhlSystem
             {
                 throw new ArgumentException("PrimaryNo is already in use by another player.");
             }
+
+            // Linq method
+            //bool primaryNoFound = Players.Any(currentPlayer => currentPlayer.PrimaryNo == newPlayer.PrimaryNo);
+            //if (primaryNoFound)
+            //{
+            //    throw new ArgumentException("PrimaryNo is already in use by another player.");
+            //}
 
             // Add the newPlayer to the team
             Players.Add(newPlayer);
@@ -59,6 +67,12 @@ namespace NhlSystem
                     totalPoints += currentPlayer.Points;
                 }
                 return totalPoints;
+
+                // Linq method syntax 1
+                //return Players.Select(currentPlayer => currentPlayer.Points).Sum();
+
+                // syntax 2
+                //return Players.Sum(currentPlayer => currentPlayer.Points);
             }
         }
 

@@ -1,4 +1,7 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using NhlSystem;
+using System.IO;
+using System.Text.Json;
+// See https://aka.ms/new-console-template for more information
 /*  Test Plan for Perosn
  *  
  *  Test Case                               Test Data                   Expected Result/Behaviour
@@ -15,8 +18,6 @@
  * */
 
 // Test Case 1: Valid FullName
-using NhlSystem;
-
 var validPerson = new Person("Connor McDavid");
 Console.WriteLine(validPerson.FullName);    // The value should be Connor McDavid
 
@@ -94,3 +95,53 @@ foreach (Player currentPlayer in oilersTeam.Players)
 }
 // Check the TotalPlayerPoints should be (44+79+22+17+55+55) = 272
 Console.WriteLine($"Total player points is {oilersTeam.TotalPlayerPoints}");
+
+static void CreatePlayersCsvFile()
+{
+    // Test creating a new Team
+    // Create a new Coach for the team
+    DateTime startDate = DateTime.Parse("2021-09-02");
+    Coach oilersCoach = new Coach("Jay Woodcroft", startDate);
+    // Create a new Team
+    Team oilersTeam = new Team("Edmonton Oilers", oilersCoach);
+    // Add 3 players to the Team 
+    Player player1 = new Player("Connor McDavid", Position.C, 97);
+    Player player2 = new Player("Evander Kane", Position.LW, 91);
+    Player player3 = new Player("Leeon Draisaitl", Position.C, 29);
+    oilersTeam.AddPlayer(player1);
+    oilersTeam.AddPlayer(player2);
+    oilersTeam.AddPlayer(player3);
+
+    const string PlayerCsvFile = "../../../Players.csv";
+    File.WriteAllLines(PlayerCsvFile, oilersTeam.Players.Select(currentPlayer => currentPlayer.ToString()).ToList());
+}
+
+CreatePlayersCsvFile();
+
+static void CreateTeamJsonFile()
+{
+    // Test creating a new Team
+    // Create a new Coach for the team
+    DateTime startDate = DateTime.Parse("2021-09-02");
+    Coach oilersCoach = new Coach("Jay Woodcroft", startDate);
+    // Create a new Team
+    Team oilersTeam = new Team("Edmonton Oilers", oilersCoach);
+    // Add 3 players to the Team 
+    Player player1 = new Player("Connor McDavid", Position.C, 97);
+    Player player2 = new Player("Evander Kane", Position.LW, 91);
+    Player player3 = new Player("Leeon Draisaitl", Position.C, 29);
+    oilersTeam.AddPlayer(player1);
+    oilersTeam.AddPlayer(player2);
+    oilersTeam.AddPlayer(player3);
+
+    const string TeamJsonFile = "../../../Team.json";
+    JsonSerializerOptions options = new JsonSerializerOptions
+    {
+        WriteIndented = true,
+        IncludeFields = true,
+    };
+    string jsonString = JsonSerializer.Serialize(oilersTeam, options);
+    File.WriteAllText(TeamJsonFile, jsonString);
+}
+
+CreateTeamJsonFile();
