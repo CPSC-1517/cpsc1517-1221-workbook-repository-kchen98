@@ -83,10 +83,16 @@ WriteLine();
 bool isAnyGameLessThan20 = games
     .Any(item => item.price < 20);
 WriteLine(isAnyGameLessThan20);
+WriteLine();
+
 // All games less than $50
 bool isAllGameLessThan50 = games
     .All(item => item.price < 50);
+WriteLine(isAllGameLessThan50);
+WriteLine();
 
 // NO PC Games on sale?
 bool isNoPcGameOnSale = !games
     .Any(item => item.platform == "PC Games");
+WriteLine(isNoPcGameOnSale);
+WriteLine();

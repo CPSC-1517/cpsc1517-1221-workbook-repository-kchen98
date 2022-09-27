@@ -95,6 +95,14 @@ foreach (Player currentPlayer in oilersTeam.Players)
 }
 // Check the TotalPlayerPoints should be (44+79+22+17+55+55) = 272
 Console.WriteLine($"Total player points is {oilersTeam.TotalPlayerPoints}");
+Console.WriteLine();
+
+//CreatePlayersCsvFile();
+//CreateTeamJsonFile();
+
+//var team = ReadPlayerCsvFile();
+var team = ReadTeamInfoFromJsonFile();
+DisplayTeamInfo(team);
 
 static void CreatePlayersCsvFile()
 {
@@ -116,8 +124,83 @@ static void CreatePlayersCsvFile()
     File.WriteAllLines(PlayerCsvFile, oilersTeam.Players.Select(currentPlayer => currentPlayer.ToString()).ToList());
 }
 
-CreatePlayersCsvFile();
+static Team ReadPlayerCsvFile()
+{
+    const string PlayerCsvFile = "../../../Players.csv";
+    Coach teamCoach = new Coach("Jay Woodcroft", DateTime.Parse("2022-02-10"));
+    Team oilersTeam = new Team("Edmonton Oilers", teamCoach);
+    try
+    {
+        string[] allLines = File.ReadAllLines(PlayerCsvFile);
+        foreach (string currentLine in allLines)
+        {
+            try
+            {
+                Player currentPlayer = null!;
+                bool success = Player.TryParse(currentLine , out currentPlayer);
+                if (success)
+                {
+                    oilersTeam.AddPlayer(currentPlayer);
+                }
+            }
+            catch(FormatException ex)
+            {
+                Console.WriteLine($"Format exception {ex.Message}");
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error parsing data from line with exception {ex.Message}");
+            }
+        }
+    }
+    catch(Exception ex)
+    {
+        Console.WriteLine($"Error reading from file with exception {ex.Message}");
+    }
+    return oilersTeam;
+}
 
+static void DisplayTeamInfo(Team currentTeam)
+{
+    if (currentTeam == null)
+    {
+        Console.WriteLine("There is no team supplied");
+    }
+    else
+    {
+        // Display the team name
+        Console.WriteLine($"Team: {currentTeam.TeamName}");
+        // Display the coach name and hire date
+        Console.WriteLine($"Coach: {currentTeam.Coach.FullName} hired on {currentTeam.Coach.StartDate.ToString("MMM dd, yyyy")}");
+        // Display the name, number, position, goals, assists, and points for each player
+        foreach(Player currentPlayer in currentTeam.Players)
+        {
+            Console.WriteLine(currentPlayer.ToString());
+        }
+    }
+}
+
+static Team ReadTeamInfoFromJsonFile()
+{
+    Team currentTeam = null!;
+    try
+    {
+        const string TeamJsonFile = "../../../Team.json";
+        string jsonString = File.ReadAllText(TeamJsonFile);
+        JsonSerializerOptions options = new JsonSerializerOptions
+        {
+            WriteIndented = true,
+            IncludeFields = true,
+        };
+        currentTeam = JsonSerializer.Deserialize<Team>(jsonString, options);
+    }
+    catch(Exception ex)
+    {
+        Console.WriteLine($"Error reading from json file with exception {ex.Message}");
+    }
+    return currentTeam;
+
+}
 static void CreateTeamJsonFile()
 {
     // Test creating a new Team
@@ -143,5 +226,3 @@ static void CreateTeamJsonFile()
     string jsonString = JsonSerializer.Serialize(oilersTeam, options);
     File.WriteAllText(TeamJsonFile, jsonString);
 }
-
-CreateTeamJsonFile();
