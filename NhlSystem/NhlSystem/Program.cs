@@ -201,6 +201,7 @@ static Team ReadTeamInfoFromJsonFile()
     return currentTeam;
 
 }
+
 static void CreateTeamJsonFile()
 {
     // Test creating a new Team
