@@ -112,9 +112,9 @@ namespace OOPReview1
         {
             if (Players.Count >= MaxPlayers)
             {
-                throw new ArgumentException("Roster is full. Remove a player first");
-                Players.Add(currentPlayer);
+                throw new ArgumentException("Roster is full. Remove a player first");          
             }
+            Players.Add(currentPlayer);
         }
         public void RemovePlayer(int playerNo)
         {
