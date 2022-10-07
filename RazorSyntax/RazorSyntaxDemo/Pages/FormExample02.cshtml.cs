@@ -10,6 +10,7 @@ namespace RazorSyntaxDemo.Pages
         }
 
         public string FeedbackMessage { get; private set; }
+        public List<int> GeneratedNumbers { get; private set; } = new List<int>();
         public void OnPost()
         {
             // Generate 7 unique numbers between 1 and 50
