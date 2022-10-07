@@ -1,0 +1,18 @@
+﻿@page
+@model RazorSyntaxDemo.Pages.RazorSyntax5Model
+@{
+}
+@{
+    var myString = "This is a string literal";
+}
+<p>@myString</p>
+<!-- Embedding a backslash in a string -->
+@{
+    var myFilePath = @"C:\MyFolder\";
+}
+<p>The path is: @myFilePath</p>
+<!-- Embedding double quotation marks in a string -->
+@{
+    var myQuote = @"The person said: ""Hello, today is Monday.""";
+}
+<p>@myQuote</p>

@@ -1,0 +1,18 @@
+﻿@page
+@model RazorSyntaxDemo.Pages.FormExample01Model
+@{
+}
+<div style="background-color: lightpink;">
+    @Model.FeedbackMessage
+</div>
+<form method="POST">
+    <input type="Submit" 
+        name="Submit" 
+        value="POST Submit" />
+</form>
+
+<form method="GET">
+    <input type="Submit"
+           name="Submit"
+           value="GET Submit" />
+</form>
