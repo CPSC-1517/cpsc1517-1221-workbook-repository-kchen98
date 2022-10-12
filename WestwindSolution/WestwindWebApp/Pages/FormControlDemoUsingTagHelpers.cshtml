@@ -1,0 +1,50 @@
+﻿@page
+@model WestwindWebApp.Pages.FormControlDemoUsingTagHelpersModel
+@{
+}
+<div class="alert-info">
+    @Model.FeedbackMessage
+</div>
+<form method="post">
+
+    <div class="mb-3">
+        <label asp-for="Username" class="form-label">Username</label>
+        <input type="text" class="form-control" placeholder="Enter your name" asp-for="Username" />
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Age" class="form-label">Age</label>
+        <input type="number" min="18" max="65" class="form-control" asp-for="Age" />
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+    <div class="mb-3">
+        <label class="form-check-label" asp-for="Subscribe">Default checkbox</label>
+        <input class="form-check-input" type="checkbox" asp-for="Subscribe">
+    </div>
+
+    <div class="mb-3">
+        <label class="form-check-label" asp-for="Gender">Male</label>
+        <input class="form-check-input" type="radio" asp-for="Gender">
+    </div>
+    <div>
+        <label class="form-check-label" asp-for="Gender">Female</label>
+        <input class="form-check-input" type="radio" asp-for="Gender">
+    </div>
+    <div>
+        <label class="form-check-label" asp-for="Gender">Unspecified</label>
+        <input class="form-check-input" type="radio" asp-for="Gender">
+    </div>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown button
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul>
+    </div>
+    
+</form>
