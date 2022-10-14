@@ -30,7 +30,7 @@ namespace WestwindWebApp.Pages
         }
         public void OnPost()
         {
-            FeedbackMessage = $"Username = {Username}, Age = {Age}, Subscribe = {Checkbox}";
+            FeedbackMessage = $"Username = {Username}, Age = {Age}, Gender = {Gender}, Department = {Department}, Comments = {Comments}, Subscribe = {Subscribe}";
         }
     }
 }
