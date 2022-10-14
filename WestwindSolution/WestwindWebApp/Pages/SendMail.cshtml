@@ -1,0 +1,37 @@
+﻿@page
+@model WestwindWebApp.Pages.SendMailModel
+@{
+}
+<div class="alert-info">
+    @Model
+</div>
+
+<form method="post">
+
+    <div class="mb-3">
+        <label asp-for="MailUsername" class="form-label">Username</label>
+        <input asp-for="MailUsername" class="form-control" placeholder="Enter your username"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MailAppPassword" class="form-label">Password</label>
+        <input asp-for="MailAppPassword" class="form-control" type="password" placeholder="Enter password"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MailToAddress" class="form-label">Mail To:</label>
+        <input asp-for="MailToAddress" class="form-control" type="email"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MailSubject" class="form-label">Subject:</label>
+        <input asp-for="MailSubject" class="form-control"/>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="MailMessage">Message:</label>
+        <textarea asp-for="MailMessage" cols="50" rows="5" class="form-control"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Send Mail</button>
+</form>
