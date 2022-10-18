@@ -6,10 +6,10 @@ namespace WestwindWebApp.Pages
     public class FormControlDemoUsingPureHtmlModel : PageModel
     {
         [TempData]
-        public string FeedbackMessage { get; set; }
+        public string FeedbackMessage { get; set; } = null!;
 
         [BindProperty]
-        public string Username { get; set; }
+        public string Username { get; set; } = null!;
 
         [BindProperty]
         public int Age { get; set; }

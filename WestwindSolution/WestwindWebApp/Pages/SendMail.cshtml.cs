@@ -7,33 +7,41 @@ namespace WestwindWebApp.Pages
 {
     public class SendMailModel : PageModel
     {
-        [BindProperty]
-        public string MailUsername { get; set; }
+        private readonly IConfiguration Configuration;
 
-        [BindProperty]
-        public string MailAppPassword { get; set; }
-
-        [BindProperty]
-        public string MailToAddress { get; set; }
-
-        [BindProperty]
-        public string MailSubject { get; set; }
-
-        [BindProperty]
-        public string MailMessage { get; set; }
-        public void OnGet()
+        public SendMailModel(IConfiguration configuration)
         {
-            MailUsername = "chenkent98@gmail.com";
-            MailAppPassword = "";
-            MailToAddress = "kchen98@yahoo.com.ph";
-            MailSubject = "CPSC1517 Send Mail Demo";
-            MailMessage = "This email was sent from a Razor Page";
+            this.Configuration = configuration;
+        }
 
+        [BindProperty]
+        public string FeedbackMessage { get; set; } = null!;
+
+        [BindProperty]
+        public string MailUsername { get; set; } = null!;
+
+        [BindProperty]
+        public string MailAppPassword { get; set; } = null!;
+
+        [BindProperty]
+        public string MailToAddress { get; set; } = null!;
+
+        [BindProperty]
+        public string MailSubject { get; set; } = null!;
+
+        [BindProperty]
+        public string MailMessage { get; set; } = null!;
+
+        public void OnPostSendMail()
+        {
+            FeedbackMessage = "<h2>Send Mail button clicked</h2>";
             var sendMailClient = new SmtpClient();
-            sendMailClient.Host = "smpt.gmail.com";
+            sendMailClient.Host = "smtp.gmail.com";
             sendMailClient.Port = 587;
             sendMailClient.EnableSsl = true;
             var sendMailCredentials = new NetworkCredential();
+            MailUsername = Configuration["GmailCredentials:Username"];
+            MailAppPassword = Configuration["GmailCredentials:Password"];
             sendMailCredentials.UserName = MailUsername;
             sendMailCredentials.Password = MailAppPassword;
             sendMailClient.Credentials = sendMailCredentials;
@@ -44,7 +52,34 @@ namespace WestwindWebApp.Pages
             var mailMessage = new MailMessage(sendFromAddress, sendToAddress);
             mailMessage.Subject = MailSubject;
             mailMessage.Body = MailMessage;
-            sendMailClient.Send(mailMessage);
+
+            try
+            {
+                sendMailClient.Send(mailMessage);
+                // Clear the form fields associated with the properties below
+                MailSubject = "";
+                MailMessage = "";
+                MailToAddress = "";
+                FeedbackMessage = "<div class='alert alert-primary'>Email Sent!</div>";
+            }
+            catch (Exception ex)
+            {
+                FeedbackMessage = $"<div class='alert alert-danger'>Error sending email {ex.Message}</div>";
+            }
+            
+        }
+
+        public void OnPostClearForm()
+        {
+            FeedbackMessage = "<h2>Clear Form button clicked</h2>";
+        }
+        public void OnGet()
+        {
+            // Dependency Injection
+            //var gmailUsername = Configuration["GmailCredentials:Username"];
+            //var gmailAppPassword = Configuration["GmailCredentials:Password"];
+            //FeedbackMessage = $"Gmail username = {gmailUsername} </br>";
+            //FeedbackMessage += $"Gmail app password = {gmailAppPassword} </br>";
         }
     }
 }

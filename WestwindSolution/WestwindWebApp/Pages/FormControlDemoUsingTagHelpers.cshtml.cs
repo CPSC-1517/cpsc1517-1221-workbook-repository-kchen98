@@ -6,10 +6,10 @@ namespace WestwindWebApp.Pages
     public class FormControlDemoUsingTagHelpersModel : PageModel
     {
         [TempData]
-        public string FeedbackMessage { get; set; }
+        public string FeedbackMessage { get; set; } = null!;
 
         [BindProperty]
-        public string Username { get; set; }
+        public string Username { get; set; } = null!;
 
         [BindProperty]
         public int Age { get; set; }
@@ -18,13 +18,13 @@ namespace WestwindWebApp.Pages
         public bool Subscribe { get; set; }
 
         [BindProperty]
-        public string Gender { get; set; }
+        public string Gender { get; set; } = null!;
 
         [BindProperty]
-        public string Department { get; set; }
+        public string Department { get; set; } = null!;
 
         [BindProperty]
-        public string Comments { get; set; }    
+        public string Comments { get; set; } = null!;
         public void OnGet()
         {
         }
