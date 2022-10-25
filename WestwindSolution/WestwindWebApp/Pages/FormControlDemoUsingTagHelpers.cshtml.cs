@@ -25,6 +25,7 @@ namespace WestwindWebApp.Pages
 
         [BindProperty]
         public string Comments { get; set; } = null!;
+
         public void OnGet()
         {
         }
