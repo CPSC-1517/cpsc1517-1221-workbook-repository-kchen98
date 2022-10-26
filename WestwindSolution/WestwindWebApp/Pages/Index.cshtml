@@ -8,3 +8,18 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@if (Model.CurrentBuildVersion == null)
+{
+    <div class="alert alert-warning" role="alert">
+        Build Version Unknown
+    </div>
+}
+else
+{
+    <div class="alert alert-info" role="alert">
+        Database Version: @Model.CurrentBuildVersion.Major . @Model.CurrentBuildVersion.Minor . @Model.CurrentBuildVersion.Build
+        &nbsp;
+        released on @Model.CurrentBuildVersion.ReleaseDate.ToString("MMM dd, yyyy")
+    </div>
+}
