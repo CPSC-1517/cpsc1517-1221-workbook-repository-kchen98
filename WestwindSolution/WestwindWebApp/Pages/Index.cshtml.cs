@@ -14,6 +14,7 @@ namespace WestwindWebApp.Pages
 
         private readonly BuildVersionServices _buildVersionServices;
 
+        // Ilogger is pre-generated we don't exactly need it unless we log something
         public IndexModel(ILogger<IndexModel> logger, BuildVersionServices buildVersionServices)
         {
             _logger = logger;

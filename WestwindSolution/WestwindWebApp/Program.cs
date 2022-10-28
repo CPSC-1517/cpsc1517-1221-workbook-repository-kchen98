@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 #region code required to setup database services
 var dbConnectionString = builder.Configuration.GetConnectionString("WestwindLocalDb");
+// neccessary to connect to BLL classes
 builder.Services.AddBackendDependencies(options => options.UseSqlServer(dbConnectionString));
 
 /* Alternative way without extensions
