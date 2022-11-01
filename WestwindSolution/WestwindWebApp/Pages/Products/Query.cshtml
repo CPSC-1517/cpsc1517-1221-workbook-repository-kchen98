@@ -1,0 +1,16 @@
+﻿@page
+@model WestwindWebApp.Pages.Products.QueryModel
+@{
+}
+<form method="post">
+    <div class="mb-3">
+        <label asp-for="SelectedCategoryId">Category</label>
+        <select class="form-select" aria-label="Department" asp-for="SelectedCategoryId">
+            <option selected>--- select a category ---</option>
+            @foreach (var currentCategory in Model.CategoryList)
+            {
+               <option value="@currentCategory.Id">@currentCategory.CategoryName</option>
+            }
+        </select>
+    </div>
+</form>
