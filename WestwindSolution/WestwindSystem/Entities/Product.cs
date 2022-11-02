@@ -8,5 +8,6 @@ namespace WestwindSystem.Entities
 {
     public class Product
     {
+        public int Id { get; set; }
     }
 }

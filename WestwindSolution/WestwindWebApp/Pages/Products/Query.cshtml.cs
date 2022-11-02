@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 #region namespaces for BLL and Entities
 using WestwindSystem.BLL;
@@ -24,11 +25,39 @@ namespace WestwindWebApp.Pages.Products
 
         [BindProperty]
         public int SelectedCategoryId { get; set; }
+
+        public SelectList CategorySelectionList { get; private set; }
         #endregion
-        public void OnGet()
+
+        public string FeedbackMessage { get; private set; }
+        public void OnGet(int? currentSelectedCategoryId)
         {
             // Fetch for the system (CategoryServices) a list of Category
             CategoryList = _categoryServices.List();
+            CategorySelectionList = new SelectList(_categoryServices.List(), "Id", "CategoryName", SelectedCategoryId);
+
+            if (currentSelectedCategoryId.HasValue && currentSelectedCategoryId.Value > 0)
+            {
+                SelectedCategoryId = currentSelectedCategoryId.Value;
+            }
+        }
+
+        public IActionResult OnPostSearchByCategory()
+        {
+            FeedbackMessage = "You clicked on Search By Category";
+            return RedirectToPage(new {currentSelectedCategoryId = SelectedCategoryId});
+        }
+
+        public IActionResult OnPostSearchByProductName()
+        {
+            FeedbackMessage = "You clicked on Search By Product Name";
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostClearForm()
+        {
+            FeedbackMessage = "You clicked on Clear Form";
+            return RedirectToPage();
         }
     }
 }
