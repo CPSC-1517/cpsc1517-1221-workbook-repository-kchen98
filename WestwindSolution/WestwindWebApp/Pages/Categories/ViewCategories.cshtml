@@ -21,7 +21,7 @@
                     <td>@currentCategory.Id</td>
                     <td>@currentCategory.CategoryName</td>
                     <td>@currentCategory.Description</td>
-                    <td><img src="data:@(currentCategory.PictureMimeType.Replace("\\","/"));base64,@Convert.ToBase64String(currentCategory.Picture)" alt="image" /></td>
+                    <td><img src="data:@(currentCategory.PictureMimeType?.Replace("\\","/"));base64,@Convert.ToBase64String(currentCategory.Picture!)" alt="image" /></td>
                 </tr>
             }
         </tbody>

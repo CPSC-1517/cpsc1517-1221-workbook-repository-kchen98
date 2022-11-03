@@ -23,6 +23,10 @@ namespace WestwindSystem
                 return new CategoryServices(context);
             });
 
+            services.AddTransient<ProductServices>(serviceProvider => {
+                var context = serviceProvider.GetRequiredService<WestwindContext>();    
+                return new ProductServices(context);
+            });
         }
     }
 }

@@ -21,15 +21,15 @@ namespace WestwindWebApp.Pages.Products
         #endregion
 
         #region Properties to populate select element and track it's selected value
-        public List<Category> CategoryList { get; private set; }
+        public List<Category>? CategoryList { get; private set; }
 
         [BindProperty]
         public int SelectedCategoryId { get; set; }
 
-        public SelectList CategorySelectionList { get; private set; }
+        public SelectList? CategorySelectionList { get; private set; }
         #endregion
 
-        public string FeedbackMessage { get; private set; }
+        public string? FeedbackMessage { get; private set; }
         public void OnGet(int? currentSelectedCategoryId)
         {
             // Fetch for the system (CategoryServices) a list of Category
