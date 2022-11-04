@@ -25,8 +25,37 @@
             <option selected >--- select a category ---</option>
         </select>
     </div>
+
+    <div class="mb-3">
+        <label asp-for="QueryProductName" class="form-label">Product Name</label>
+        <input class="form-control" asp-for="QueryProductName" />
+    </div>
+
     <button type="submit" asp-page-handler="SearchByCategory" class="btn btn-primary">Search by Category</button>
     <button type="submit" asp-page-handler="SearchByProductName" class="btn btn-primary">Search by Product Name</button>
     <button type="submit" asp-page-handler="ClearForm" class="btn btn-light">Clear</button>
 
 </form>
+
+@if (Model.QueryResultList != null)
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Product Name</th>
+                <th>Unit Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var currentProduct in Model.QueryResultList)
+            {
+                <tr>
+                    <td>@currentProduct.Id</td>
+                    <td>@currentProduct.ProductName</td>
+                    <td>@currentProduct.UnitPrice</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

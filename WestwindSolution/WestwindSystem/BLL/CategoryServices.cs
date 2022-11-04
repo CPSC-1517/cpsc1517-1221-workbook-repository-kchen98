@@ -53,7 +53,7 @@ namespace WestwindSystem.BLL
         {
             var query = _dbContext
                 .Categories
-                .Where(item => item.Description.Contains(partialDescription));
+                .Where(item => item.Description!.Contains(partialDescription));
             return query.ToList();
         }
     }

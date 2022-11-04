@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace WestwindSystem.Entities
 {
+    [Table("Products")]
     public class Product
     {
         [Key]
@@ -21,6 +22,8 @@ namespace WestwindSystem.Entities
         [Required(ErrorMessage = "SupplierID is required")]
         public int SupplierID { get; set; }
 
+        public virtual Category? Category { get; set; }  
+
         [Required(ErrorMessage = "CategoryID is required")]
         public int CategoryID { get; set; }
 
@@ -28,8 +31,9 @@ namespace WestwindSystem.Entities
         [MaxLength(20, ErrorMessage = "QuantityPerUnit cannot contain more than 20 characters")]
         public string QuantityPerUnit { get; set; } = null!;
 
-        public int MinimumOrderQuantity { get; set; }
+        public int? MinimumOrderQuantity { get; set; }
 
+        [Column(TypeName = "money")]
         [Required(ErrorMessage = "UnitPrice is required")]
         public decimal UnitPrice { get; set; }
 

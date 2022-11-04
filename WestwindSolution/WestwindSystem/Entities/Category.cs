@@ -21,5 +21,12 @@ namespace WestwindSystem.Entities
         public byte[]? Picture { get; set; }
 
         public string? PictureMimeType { get; set; }
+
+        public virtual ICollection<Product> Products { get; set; }
+
+        public Category()
+        {
+            this.Products = new HashSet<Product>();
+        }
     }
 }

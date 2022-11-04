@@ -13,10 +13,16 @@ namespace WestwindWebApp.Pages.Products
     {
         #region Setup constructor DI for BLL
         private readonly CategoryServices _categoryServices;
+        private readonly ProductServices _productServices;
 
-        public QueryModel(CategoryServices categoryServices)
+        public QueryModel(CategoryServices categoryServices, ProductServices productServices)
         {
             _categoryServices = categoryServices;
+            _productServices = productServices;
+
+            // Fetch for the system (CategoryServices) a list of Category
+            CategoryList = _categoryServices.List();
+            CategorySelectionList = new SelectList(_categoryServices.List(), "Id", "CategoryName", SelectedCategoryId);
         }
         #endregion
 
@@ -29,35 +35,35 @@ namespace WestwindWebApp.Pages.Products
         public SelectList? CategorySelectionList { get; private set; }
         #endregion
 
-        public string? FeedbackMessage { get; private set; }
-        public void OnGet(int? currentSelectedCategoryId)
-        {
-            // Fetch for the system (CategoryServices) a list of Category
-            CategoryList = _categoryServices.List();
-            CategorySelectionList = new SelectList(_categoryServices.List(), "Id", "CategoryName", SelectedCategoryId);
+        [BindProperty]
+        public string? QueryProductName { get; set; }
 
-            if (currentSelectedCategoryId.HasValue && currentSelectedCategoryId.Value > 0)
-            {
-                SelectedCategoryId = currentSelectedCategoryId.Value;
-            }
-        }
+        [TempData]
+        public string? FeedbackMessage { get; set; }
 
-        public IActionResult OnPostSearchByCategory()
+        public List<Product>? QueryResultList { get; private set; }
+
+        public void OnPostSearchByCategory()
         {
             FeedbackMessage = "You clicked on Search By Category";
-            return RedirectToPage(new {currentSelectedCategoryId = SelectedCategoryId});
+            QueryResultList = _productServices.FindProductsByCategoryID(SelectedCategoryId);
         }
 
-        public IActionResult OnPostSearchByProductName()
+        public void OnPostSearchByProductName()
         {
             FeedbackMessage = "You clicked on Search By Product Name";
-            return RedirectToPage();
+            QueryResultList = _productServices.FindProductsByProductName(QueryProductName!);
         }
 
         public IActionResult OnPostClearForm()
         {
             FeedbackMessage = "You clicked on Clear Form";
             return RedirectToPage();
+        }
+
+        public void OnGet()
+        {
+
         }
     }
 }

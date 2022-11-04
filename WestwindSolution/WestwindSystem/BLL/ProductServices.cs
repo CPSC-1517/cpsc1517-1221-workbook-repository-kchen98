@@ -19,8 +19,14 @@ namespace WestwindSystem.BLL
 
         public List<Product> FindProductsByCategoryID(int categoryId)
         {
-            var query = _dbContext.Products.Where(item => item.Id == categoryId);
+            var query = _dbContext.Products.Where(currentProduct => currentProduct.CategoryID == categoryId);
             return query.ToList();
+        }
+
+        public List<Product> FindProductsByProductName(string partialProductName)
+        {
+            var query = _dbContext.Products.Where(currentProduct => currentProduct.ProductName.Contains(partialProductName));
+            return query.ToList();  
         }
     }
 }
