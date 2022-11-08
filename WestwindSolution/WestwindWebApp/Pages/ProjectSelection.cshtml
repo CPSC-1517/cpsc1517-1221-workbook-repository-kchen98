@@ -1,0 +1,22 @@
+﻿@page
+@model WestwindWebApp.Pages.ProjectSelectionModel
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>FullName</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var currentStudent in Model.Students)
+        {
+            <tr>
+                <td>@currentStudent.Id</td>
+                <td>@currentStudent.FullName</td>
+            </tr>
+        }
+    </tbody>
+</table>
