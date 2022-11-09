@@ -20,3 +20,55 @@
         }
     </tbody>
 </table>
+
+<h2>Available Scenarios</h2>
+<ol>
+    @foreach(var currentScenario in Model.AvailableScenariosDict.Values)
+    {
+        <li>@currentScenario</li>
+    }
+</ol>
+
+<h2>Project Selection Assignment</h2>
+@if (Model.StudentGroupDict.Count > 0)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Group Name</th>
+                <th>Scenario</th>
+                <th>Group Members</th>
+            </tr>
+        </thead>
+        <tbody>   
+            @foreach(var kvp in Model.StudentGroupDict)
+            {
+                <tr>
+                    <td>@kvp.Key</td>
+                    <td>@Model.AvailableScenariosDict[kvp.Key]</td>
+                    <td>
+                        <ol>
+                            @foreach(var currentstudent in kvp.Value)
+                            {
+                                <li>@currentstudent.FullName</li>
+                            }
+                        </ol>
+                    </td>
+                </tr>
+            }     
+        </tbody>
+    </table>
+}
+
+<form method="post">
+    <div class="row">
+        <div class="col">
+            <label asp-for="NumberOfGroups">Number of Groups</label>
+            <input asp-for="NumberOfGroups" class="form-control"/>
+        </div>
+        <div class="col">
+            <button type="submit" asp-page-handler="SplitIntoGroups">Split into Groups</button>
+        </div>
+    </div>
+    
+</form>
