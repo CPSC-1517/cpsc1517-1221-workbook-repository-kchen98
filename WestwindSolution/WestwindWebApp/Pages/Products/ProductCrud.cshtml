@@ -1,0 +1,14 @@
+﻿@page "{EditProductId?}"
+@model WestwindWebApp.Pages.Products.ProductCrudModel
+@{
+}
+<h1>Product Maintenance</h1>
+
+@if (Model.EditProductId.HasValue)
+{
+    <h2>Edit/Delete Product</h2>
+}
+else 
+{
+    <h2>Create New Product</h2>
+}
