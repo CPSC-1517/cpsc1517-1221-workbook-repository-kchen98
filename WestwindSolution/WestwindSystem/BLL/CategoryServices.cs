@@ -1,4 +1,5 @@
-﻿using WestwindSystem.DAL;
+﻿using Microsoft.EntityFrameworkCore;
+using WestwindSystem.DAL;
 using WestwindSystem.Entities;
 
 namespace WestwindSystem.BLL
@@ -55,6 +56,49 @@ namespace WestwindSystem.BLL
                 .Categories
                 .Where(item => item.Description!.Contains(partialDescription));
             return query.ToList();
+        }
+
+        public int AddCategory(Category newCategory)
+        {
+            // Enforce business rule where CategoryName must be unique
+            bool exists = _dbContext.Categories.Any(c => c.CategoryName == newCategory.CategoryName);
+            if (exists)
+            {
+                throw new ArgumentException($"The Category Name {newCategory.CategoryName} already exists!");
+            }
+
+            _dbContext.Categories.Add(newCategory);
+            _dbContext.SaveChanges();
+            return newCategory.Id;
+        }
+
+        public int UpdateCategory(Category existingCategory)
+        {
+            _dbContext.Categories.Attach(existingCategory).State = EntityState.Modified;
+            int rowsUpdated = _dbContext.SaveChanges();
+            return rowsUpdated;
+        }
+
+        public int DeleteCategory(int categoryID)
+        {
+            Category existingCategory = _dbContext.Categories
+                .Where(c => c.Id == categoryID)
+                .Include(c => c.Products)
+                .FirstOrDefault();
+
+            if (existingCategory == null)
+            {
+                throw new ArgumentException($"CategoryID {categoryID} does not exists.");
+            }
+            int categoryProductCount = existingCategory.Products.Count();
+            if (categoryProductCount > 0)
+            {
+                throw new Exception("This categories has products and cannot be deleted.");
+            }
+
+            _dbContext.Categories.Remove(existingCategory);
+            int rowsDeleted = _dbContext.SaveChanges();
+            return rowsDeleted;
         }
     }
 }

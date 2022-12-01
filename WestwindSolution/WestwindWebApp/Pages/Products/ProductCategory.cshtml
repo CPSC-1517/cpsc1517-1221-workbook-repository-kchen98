@@ -37,6 +37,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Product Name</th>
+                    <th>Supplier</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -47,6 +48,32 @@
                     <tr>
                         <td>@currentProduct.Id</td>
                         <td>@currentProduct.ProductName</td>
+                        <td>
+                            <select>
+                                @foreach(var item in Model.SupplierSelectList)
+                                {
+                                    if(int.Parse(item.Value) == currentProduct.SupplierId)
+                                    {
+                                        <option value="@item.Value" selected>@item.Text</option>
+                                    }
+                                    else 
+                                    {
+                                        <option value="@item.Value">@item.Text</option>
+                                    }
+                                }
+
+                                @*
+                                Instead of using an if statement to output a conditional HTML attribute
+                                you can a razor inline expression to determine if the HTML attribute is included
+                                such as the selected attribute is only included if the @(boolean_expression) evaluates to true
+                                selected = @(boolean_expression)
+                                *@
+                                @*<option value="@item.Value"
+                                selected=@(int.Parse(item.Value) == currentProduct.SupplierId)>
+                                    @item.Text
+                                </option>*@
+                            </select>
+                        </td>
                         <td><a href="/Products/ProductCrud/@currentProduct.Id">edit</a></td>
                     </tr>
                 }

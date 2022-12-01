@@ -11,15 +11,18 @@ namespace WestwindWebApp.Pages.Products
         #region internal fields
         private readonly CategoryServices _categoryServices;
         private readonly ProductServices _productServices;
+        private readonly SupplierServices _supplierServices;
         #endregion
 
         #region data properties for page
         // Data source for category select element 
-        public SelectList CategorySelectList { get; set; }
+        public SelectList CategorySelectList { get; private set; }
 
         // Bind property for value selected from select element
         [BindProperty]
         public int? SelectedCategoryId { get; set; }
+
+        public SelectList SupplierSelectList { get; private set; }
 
         // Query result property
         public List<Product>? QueryProductResultList { get; private set; }
@@ -30,14 +33,19 @@ namespace WestwindWebApp.Pages.Products
         #endregion
 
         #region constructor with dependencies
-        public ProductCategoryModel(CategoryServices categoryServices, ProductServices productServices)
+        public ProductCategoryModel(CategoryServices categoryServices, ProductServices productServices, SupplierServices supplierServices)
         {
             _categoryServices = categoryServices;
             _productServices = productServices;
+            _supplierServices = supplierServices;
 
             // Fetch list of categories
             List<Category> categories = _categoryServices.List();
             CategorySelectList = new SelectList(categories, "Id", "CategoryName");
+
+            // Fetch list of suppliers
+            List<Supplier> suppliers = _supplierServices.List();
+            SupplierSelectList = new SelectList(suppliers, "SupplierId", "ListItemText");
         }
         #endregion
 

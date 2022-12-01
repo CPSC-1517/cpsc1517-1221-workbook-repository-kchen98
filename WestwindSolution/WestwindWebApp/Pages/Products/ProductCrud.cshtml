@@ -12,3 +12,27 @@ else
 {
     <h2>Create New Product</h2>
 }
+
+@if (Model.InfoMessage != null)
+{
+    <div class="alert alert-info">
+        @Model.InfoMessage
+    </div>
+}
+@if (Model.ErrorMessage != null)
+{
+    <div class="alert alert-danger">
+        @Model.ErrorMessage
+    </div>
+}
+
+<form method="post">
+    <div>
+        <label asp-for="CurrentProduct.ProductName">Product Name</label>
+        <input asp-for="CurrentProduct.ProductName" class="form-control"/>
+    </div>
+    <div>
+        <label asp-for="CurrentProduct.UnitPrice">Unit Price</label>
+        <input asp-for="CurrentProduct.UnitPrice" class="form-control" />
+    </div>
+</form>

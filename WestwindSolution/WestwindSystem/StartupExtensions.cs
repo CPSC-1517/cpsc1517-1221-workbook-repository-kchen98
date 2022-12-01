@@ -28,6 +28,12 @@ namespace WestwindSystem
                 return new ProductServices(context);
             });
 
+            services.AddTransient<SupplierServices>(serviceProvider =>
+            {
+                var context = serviceProvider.GetRequiredService<WestwindContext>();
+                return new SupplierServices(context);
+            });
+
             services.AddTransient<RegionServices>(serviceProvider =>
             {
                 var context = serviceProvider.GetRequiredService<WestwindContext>();
@@ -36,8 +42,8 @@ namespace WestwindSystem
 
             services.AddTransient<TerritoryServices>(serviceProvider =>
             {
-                var contetxt = serviceProvider.GetRequiredService<WestwindContext>();
-                return new TerritoryServices(contetxt);
+                var context = serviceProvider.GetRequiredService<WestwindContext>();
+                return new TerritoryServices(context);
             });
         }
     }

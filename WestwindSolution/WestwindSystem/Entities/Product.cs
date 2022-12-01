@@ -20,12 +20,10 @@ namespace WestwindSystem.Entities
         public string ProductName { get; set; } = null!;
 
         [Required(ErrorMessage = "SupplierID is required")]
-        public int SupplierID { get; set; }
-
-        public virtual Category? Category { get; set; }  
+        public int SupplierId { get; set; }  
 
         [Required(ErrorMessage = "CategoryID is required")]
-        public int CategoryID { get; set; }
+        public int CategoryId { get; set; }
 
         [Required(ErrorMessage = "QuantityPerUnit is required")]
         [MaxLength(20, ErrorMessage = "QuantityPerUnit cannot contain more than 20 characters")]
@@ -42,5 +40,9 @@ namespace WestwindSystem.Entities
 
         [Required(ErrorMessage = "Discontinued is required")]
         public bool Discontinued { get; set; }
+
+        public virtual Category? Category { get; set; }
+
+        public virtual Supplier? Supplier { get; set; }
     }
 }
