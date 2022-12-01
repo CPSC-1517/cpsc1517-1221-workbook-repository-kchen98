@@ -14,12 +14,15 @@ namespace WestwindSystem.Entities
         [Key]
         [Column("TerritoryID")]
         [StringLength(20)]
+        [Required(ErrorMessage = "TerritoryId is required")]
         public string TerritoryId { get; set; } = null!;
 
         [StringLength(50)]
+        [Required(ErrorMessage = "Territory Description is required")]
         public string TerritoryDescription { get; set; } = null!;
 
         [Column("RegionID")]
+        [Required(ErrorMessage = "RegionId is required")]
         public int RegionId { get; set; }
 
         [ForeignKey("RegionId")]

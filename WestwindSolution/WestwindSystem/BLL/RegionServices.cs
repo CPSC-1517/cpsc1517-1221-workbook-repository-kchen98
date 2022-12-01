@@ -17,6 +17,12 @@ namespace WestwindSystem.BLL
             _dbContext = dbContext;
         }
 
+        public Region? GetById(int regionId)
+        {
+            var query = _dbContext.Regions;
+            return query.FirstOrDefault(currentRegion => currentRegion.RegionId == regionId);
+        }
+
         public List<Region> GetAll()
         {
             var query = _dbContext.Regions.OrderBy(currentRegion => currentRegion.RegionDescription);

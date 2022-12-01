@@ -81,7 +81,7 @@ namespace WestwindSystem.BLL
 
         public int DeleteCategory(int categoryID)
         {
-            Category existingCategory = _dbContext.Categories
+            Category? existingCategory = _dbContext.Categories
                 .Where(c => c.Id == categoryID)
                 .Include(c => c.Products)
                 .FirstOrDefault();
