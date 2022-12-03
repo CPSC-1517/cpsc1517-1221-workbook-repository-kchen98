@@ -48,23 +48,31 @@ else
     </div>
 
     <div>
-        <button type="submit"
+        @if (Model.EditTerritoryId == null)
+        {
+            <button type="submit"
                 asp-page-handler="SaveNew"
                 class="btn btn-primary">
-            Save New
-        </button>
-        <button type="submit"
+                Save New
+            </button>
+        }
+        
+        @if (Model.EditTerritoryId != null)
+        {
+            <button type="submit"
                 asp-page-handler="Update"
                 class="btn btn-info">
-            Update
-        </button>
-        <button type="submit"
+                Update
+            </button>
+            <button type="submit"
                 asp-page-handler="Delete"
                 class="btn btn-danger"
                 formnovalidate
                 onclick="return confirm('Are you sure you wish to delete this item?')">
-            Delete
-        </button>
+                Delete
+            </button>
+        }
+        
         <button type="submit"
                 asp-page-handler="Clear"
                 class="btn btn-secondary"

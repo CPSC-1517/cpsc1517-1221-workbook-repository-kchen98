@@ -157,6 +157,7 @@ namespace WestwindWebApp.Pages.Territories
                     if (rowsAffected == 1)
                     {
                         InfoMessage = "Delete was successful.";
+                        nextPage = RedirectToPage("/Territories/Query");
                     }
                     else
                     {
